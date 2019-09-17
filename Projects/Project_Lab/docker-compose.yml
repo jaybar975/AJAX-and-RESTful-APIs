@@ -26,7 +26,6 @@ services:
 
   mysql:
     image: mysql:5.7
-    container_name: 'mysql'
     restart: 'always'
     ports:
       - "${HOST_MACHINE_MYSQL_PORT}:3306"
@@ -40,7 +39,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: 'phpmyadmin'
     links:
       - mysql
     environment:
@@ -56,7 +54,6 @@ services:
     volumes: 
       - /sessions
   redis:
-    container_name: 'redis'
     image: redis:latest
     ports:
       - "${HOST_MACHINE_REDIS_PORT}:6379"
