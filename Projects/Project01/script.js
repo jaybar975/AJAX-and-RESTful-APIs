@@ -11,3 +11,54 @@
 // global variables
 var httpRequest = false;
 var entry = "^IXIC";
+function getRequestObject() {
+    try {
+        httpRequest = new XMLHttpRequest();
+    }
+    catch (requestError) {
+        return false;
+    }
+    return httpRequest;    
+}
+if (window.addEventListener) {
+    window.addEventListener("load", getRequestObject,false);
+}
+else if (window.attachEvent) {
+    window.attachEvent("onload", getRequestObject);
+}
+
+function stopSubmission(evt) {
+    alert("stopSubmission()");
+    if (evt.preventDefault) {
+        evt.preventDefault();
+    }
+    else {
+        evt.returnValue = false;
+    }
+}
+
+function getQuote() {
+    alert("getQuote()");
+    if (document.getElementsByTagName("input")[0].value) {
+        entry = document.getElementsByTagName("input")[0].value;
+    }
+    if (!httpRequest) {
+        httpRequest = getRequestObject();
+    }
+}
+
+
+
+
+
+
+// Bottom Code
+var form = document.getElementsByTagName("form")[0];
+if (form.addEventListener) {
+    form.addEventListener("submit", stopSubmission,false);
+    window.addEventListener("load", getRequestObject, false);
+}
+else if (form.attachEvent) {
+    form.attachEvent("onsubmit", stopSubmission);
+    window.attachEvent("onload",getRequestObject);
+}
